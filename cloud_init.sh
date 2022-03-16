@@ -14,7 +14,7 @@ apt install python3-dev python3-pip python3-wheel -y
 pip3 install wheel
 
 git clone $PROJECT_REPO_HTTPS
-mv $PROJECT_NAME /var/www/
+mv ./$PROJECT_NAME /var/www/
 
 echo "STATIC_ROOT = os.path.join(BASE_DIR, \"static/\")" >> $PROJECT_DIR/CollegeERP/settings.py
 echo "STATICFILES = [STATIC_ROOT]" >> $PROJECT_DIR/CollegeERP/settings.py
