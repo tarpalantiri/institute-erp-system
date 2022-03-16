@@ -4,3 +4,5 @@ djangorestframework
 djoser
 pytz
 sqlparse
+wheel
+mysqlclient
