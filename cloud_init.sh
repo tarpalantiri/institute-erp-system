@@ -2,16 +2,19 @@
 
 # CLOUD INIT SCRIPT FOR COLLEGE-ERP DJANGO PROJECT SETUP ON UBUNTU 20.04 EC2
 
+PROJECT_REPO_HTTPS="https://github.com/tarpalantiri/institute-erp-system.git"
+PROJECT_NAME="institute-erp-system"
 PROJECT_DIR="/var/www/institute-erp-system"
-EC2_PUBLIC_DNS=`curl http://169.254.169.254/latest/meta-data/public-hostname`
-REPO_HTTPS_CLONE_LINK="https://github.com/tarpalantiri/institute-erp-system.git"
+EC2_PUBLIC_DNS=$(curl http://169.254.169.254/latest/meta-data/public-hostname)
 
 apt update
 apt upgrade -y
-apt install apache2 libapache2-mod-wsgi-py3 python3.8-venv python3-pip -y
+apt install gcc apache2 mysql-server libmysqlclient-dev libapache2-mod-wsgi-py3 python3.8-venv python3-pip libpq-dev -y
+apt install python3-dev python3-pip python3-wheel -y
+pip3 install wheel
 
-git clone $REPO_HTTPS_CLONE_LINK
-mv $HOME/College-ERP /var/www/
+git clone $PROJECT_REPO_HTTPS
+mv $PROJECT_NAME /var/www/
 
 echo "STATIC_ROOT = os.path.join(BASE_DIR, \"static/\")" >> $PROJECT_DIR/CollegeERP/settings.py
 echo "STATICFILES = [STATIC_ROOT]" >> $PROJECT_DIR/CollegeERP/settings.py
@@ -27,6 +30,8 @@ chmod 664 $PROJECT_DIR/db.sqlite3
 chown :www-data $PROJECT_DIR/
 chown :www-data $PROJECT_DIR/db.sqlite3
 chown :www-data $PROJECT_DIR/CollegeERP
+
+rm -rf /var/www/html
 
 mv /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf_backup
 echo "<VirtualHost *:80>
