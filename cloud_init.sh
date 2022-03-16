@@ -2,14 +2,15 @@
 
 # CLOUD INIT SCRIPT FOR COLLEGE-ERP DJANGO PROJECT SETUP ON UBUNTU 20.04 EC2
 
-PROJECT_DIR="/var/www/College-ERP"
+PROJECT_DIR="/var/www/institute-erp-system"
 EC2_PUBLIC_DNS=`curl http://169.254.169.254/latest/meta-data/public-hostname`
+REPO_HTTPS_CLONE_LINK="https://github.com/tarpalantiri/institute-erp-system.git"
 
 apt update
 apt upgrade -y
 apt install apache2 libapache2-mod-wsgi-py3 python3.8-venv python3-pip -y
 
-git clone https://github.com/samarth-p/College-ERP.git
+git clone $REPO_HTTPS_CLONE_LINK
 mv $HOME/College-ERP /var/www/
 
 echo "STATIC_ROOT = os.path.join(BASE_DIR, \"static/\")" >> $PROJECT_DIR/CollegeERP/settings.py
