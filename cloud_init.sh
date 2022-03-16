@@ -11,6 +11,8 @@ apt update
 apt upgrade -y
 apt install gcc apache2 mysql-server libmysqlclient-dev libapache2-mod-wsgi-py3 python3.8-venv python3-pip libpq-dev -y
 apt install python3-dev python3-pip python3-wheel -y
+snap install amazon-ssm-agent --classic
+
 pip3 install wheel
 
 git clone $PROJECT_REPO_HTTPS
